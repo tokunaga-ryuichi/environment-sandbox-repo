@@ -27,5 +27,5 @@ jobs:
         env:
           TEST_ENV: ${{ secrets.TEST_ENV }}
         run: |
-          echo "$TEST_ENV" > test.txt
+          echo "$TEST_ENV" | base64 -d > test.txt
           cat test.txt
