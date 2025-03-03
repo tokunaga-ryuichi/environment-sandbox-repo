@@ -27,4 +27,5 @@ jobs:
         env:
           TEST_ENV: ${{ secrets.TEST_ENV }}
         run: |
-          echo "$TEST_ENV"
+          echo "$TEST_ENV" > test.txt
+          cat test.txt
