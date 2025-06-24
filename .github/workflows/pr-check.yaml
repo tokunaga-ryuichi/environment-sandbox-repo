@@ -28,12 +28,6 @@ jobs:
     environment: ${{ github.event.inputs.environment }}
     steps:
       - uses: actions/checkout@v4
-      - name: environment-test
-        env:
-          TEST_ENV: ${{ secrets.TEST_ENV }}
-        run: |
-          echo "$TEST_ENV" | base64 -d > test.txt
-          cat test.txt
       - name: description pull request
         env:
           GH_TOKEN: ${{ github.token }}
