@@ -39,4 +39,6 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh pr list
-          gh pr list --json title,assignees,url
+          gh pr list --state open \
+            --json number,title,reviewRequests,reviews \
+            --jq '.[]'
