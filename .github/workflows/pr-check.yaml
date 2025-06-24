@@ -1,4 +1,4 @@
-name: environment test
+name: pr check
 
 on:
   pull_request:
@@ -27,6 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: ${{ github.event.inputs.environment }}
     steps:
+      - uses: actions/checkout@v4
       - name: environment-test
         env:
           TEST_ENV: ${{ secrets.TEST_ENV }}
