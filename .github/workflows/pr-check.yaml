@@ -2,10 +2,13 @@ name: pr check
 
 on:
   pull_request:
-    types: [opened, reopened]   # プルリクがオープン、再オープンしたとき
+    # プルリクがオープン、再オープンしたとき
+    types: [opened, reopened]
   schedule:
-    - cron: '0 8 * * 1-5'   # 平日 8 時に定期実行
+    # 平日 8 時に定期実行
+    - cron: '0 8 * * 1-5'
   workflow_dispatch:
+    # 手動実行
     inputs:
       environment:
         type: choice
