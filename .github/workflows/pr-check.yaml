@@ -1,0 +1,40 @@
+name: environment test
+
+on:
+  pull_request:
+    types: [opened, reopened]   # プルリクがオープン、再オープンしたとき
+  schedule:
+    - cron: '0 8 * * 1-5'   # 平日 8 時に定期実行
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: choice
+        description: environment
+        options:
+          - dev
+          - stg
+          - prod
+
+env:
+  environment: ${{ github.event.inputs.environment }}
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  environment-test:
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment }}
+    steps:
+      - name: environment-test
+        env:
+          TEST_ENV: ${{ secrets.TEST_ENV }}
+        run: |
+          echo "$TEST_ENV" | base64 -d > test.txt
+          cat test.txt
+      - name: description pull request
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh pr list --json title,assignees,url
